@@ -1,6 +1,11 @@
+import * as dotenv from "dotenv"
+dotenv.config()
 import { ApolloServer } from "@apollo/server"
 import { startStandaloneServer } from "@apollo/server/standalone"
 import books from "./data/books.js"
+import { connectDB } from "./config/db.js"
+
+connectDB()
 
 const typeDefs = `
     type Book {

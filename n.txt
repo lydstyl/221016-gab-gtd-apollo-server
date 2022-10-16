@@ -1,0 +1,13 @@
+{
+  "_id": {
+    "$oid": "6216c0a102472c3d9632f0d0"
+  },
+  "name": "new task",
+  "description": "description",
+  "dueDate": "",
+  "labels": [],
+  "activities": [],
+  "checklists": [],
+  "files": [],
+  "uid": "lydstyl@gmail.com"
+}
