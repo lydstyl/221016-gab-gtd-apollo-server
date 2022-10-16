@@ -5,6 +5,7 @@ import { ApolloServer } from "@apollo/server"
 import { startStandaloneServer } from "@apollo/server/standalone"
 import books from "./data/books.js"
 import { connectDB } from "./config/db.js"
+import Book from './models/Book.js'
 
 connectDB()
 
@@ -24,24 +25,44 @@ const typeDefs = `
 `
 
 const resolvers = {
+    // Query: {
+    //     books: async () => {
+            
+    //         // console.log(Book.find());
+
+    //         const result = await Book.find()
+            
+            
+    //         return books},
+    // },
     Query: {
-        books: () => books,
+        books:  async () => {
+            const result = await Book.find()
+            console.log(result);
+            // return books
+            return result
+        },
     },
     Mutation: {
-        addBook: (_, { title, author }) => {
-            const newBook = {
-                title,
-                author,
-            }
-            // // in graphi :
-            // mutation AddBook {
-            //     addBook(title: "Gabise book", author: "Gab") {
-            //       title
-            //       author
-            //     }
-            //   }
+        addBook: (_, { title, author }) => { // parent and args ?
+            // const newBook = {
+            //     title,
+            //     author,
+            // }
+            // // // in graphi :
+            // // mutation AddBook {
+            // //     addBook(title: "Gabise book", author: "Gab") {
+            // //       title
+            // //       author
+            // //     }
+            // //   }
 
-            books.push(newBook)
+            // books.push(newBook)
+
+            const newBook = new Book({
+                title: 'Mon titre', author: 'Gaby'
+            })
+            newBook.save()
 
             console.log(`Book ${newBook.title} added.`)
 
