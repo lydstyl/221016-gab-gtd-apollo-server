@@ -5,7 +5,7 @@ import books from "./data/books.js"
 const typeDefs = `
     type Book {
         title: String
-        #author: String
+        author: String
     }
 
     type Query {
@@ -13,7 +13,7 @@ const typeDefs = `
     }
 
     type Mutation {
-        addBook(title: String): Book
+        addBook(title: String, author: String): Book
     }
 `
 
@@ -22,13 +22,24 @@ const resolvers = {
         books: () => books,
     },
     Mutation: {
-        addBook: () => {
-            console.log("book added")
-
-            return {
-                title: "New book",
-                author: "Gabriel Brun",
+        addBook: (_, { title, author }) => {
+            const newBook = {
+                title,
+                author,
             }
+            // // in graphi :
+            // mutation AddBook {
+            //     addBook(title: "Gabise book", author: "Gab") {
+            //       title
+            //       author
+            //     }
+            //   }
+
+            books.push(newBook)
+
+            console.log(`Book ${newBook.title} added.`)
+
+            return newBook
         },
     },
 }
