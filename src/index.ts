@@ -1,3 +1,4 @@
+import colors from "colors"
 import * as dotenv from "dotenv"
 dotenv.config()
 import { ApolloServer } from "@apollo/server"
@@ -58,4 +59,4 @@ const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
 })
 
-console.log(`🚀  Server ready at: ${url}`)
+console.log(colors.green.underline.bold`🚀  Server ready at: ${url}`))
