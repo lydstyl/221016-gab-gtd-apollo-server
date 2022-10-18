@@ -1,8 +1,4 @@
 const Login = `
-type Login {
-    email: String
-    password: String
-}
 type Token {
     token: String
 }
