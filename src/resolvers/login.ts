@@ -1,9 +1,6 @@
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 import User from "../models/User.js"
-
-function createTokenWithEmail(email) {
-    return "myToken" + email // TODO generate token with email
-}
 
 // Query
 const login = async (parent, { email, password }) => {
@@ -14,11 +11,13 @@ const login = async (parent, { email, password }) => {
     const match = await bcrypt.compare(password, user.encryptedPassword)
 
     if (match) {
-        //login
         console.log("same pass")
 
         // create a token (with email)
-        const token = createTokenWithEmail(email)
+        const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+            expiresIn: "20h",
+        }) // TODO put secret in env var.
+
         return { token }
     } else {
         console.log("wrong pass")

@@ -2,9 +2,8 @@
 
 ## TODO
 
--   POC auth + permission
--   User
 -   Tasks CRUD
+-   Script to clear database and populate it from trello
 -   Domain code
 
     -   21 tasks filtered by
