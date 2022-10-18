@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt"
 import User from "../models/User.js"
 
 function createTokenWithEmail(email) {
@@ -6,12 +7,14 @@ function createTokenWithEmail(email) {
 
 // Query
 const login = async (parent, { email, password }) => {
-    // Encrypt password (TODO)
     // Find user with email
     const user = await User.findOne({ email }).exec()
 
     // Compare user encryptedPassword with password
-    if (user.encryptedPassword === password) {
+    const match = await bcrypt.compare(password, user.encryptedPassword)
+
+    if (match) {
+        //login
         console.log("same pass")
 
         // create a token (with email)
