@@ -11,7 +11,7 @@ const addUser = (_, { email, password }) => {
     // parent and args ?
     const newItem = new User({
         email,
-        password,
+        encryptedPassword: password, // TODO encrypt password
     })
     newItem.save()
     return newItem
