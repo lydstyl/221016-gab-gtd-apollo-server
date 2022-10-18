@@ -9,7 +9,7 @@ const userQueries = `
 `
 const userMutations = `
     addUser(email: String, password: String): User
-    deleteUser(id: String): User
+    deleteUser(email: String): User
 `
 
 export { User, userQueries, userMutations }

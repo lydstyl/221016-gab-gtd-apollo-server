@@ -30,9 +30,10 @@ const addUser = async (_, { email, password }) => {
     newItem.save()
     return newItem
 }
-const deleteUser = async (_, { id }) => {
-    const result = await User.findByIdAndRemove(id)
-    return result
+const deleteUser = async (_, { email }) => {
+    const user = await User.findOne({ email }).exec()
+    user.deleteOne()
+    return user
 }
 
 export { getUsers, addUser, deleteUser }
