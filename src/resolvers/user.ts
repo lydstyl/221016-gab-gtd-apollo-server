@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql"
+import bcrypt from "bcrypt"
 import User from "../models/User.js"
 
 // Query
@@ -18,11 +19,13 @@ const getUsers = async (parent, args, context, info) => {
 }
 
 // Mutation
-const addUser = (_, { email, password }) => {
+const addUser = async (_, { email, password }) => {
     // parent and args ?
-    const newItem = new User({
+    const saltRounds = 10
+    const encryptedPassword = await bcrypt.hash(password, saltRounds)
+    const newItem = await new User({
         email,
-        encryptedPassword: password, // TODO encrypt password
+        encryptedPassword,
     })
     newItem.save()
     return newItem
