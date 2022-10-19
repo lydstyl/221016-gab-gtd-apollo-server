@@ -2,7 +2,7 @@
 
 ## TODO
 
--   Tasks CRUD
+-   Tasks CRUD with authorization
 -   Script to clear database and populate it from trello
 -   Domain code
 

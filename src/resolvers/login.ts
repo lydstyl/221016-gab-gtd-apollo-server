@@ -4,25 +4,22 @@ import User from "../models/User.js"
 
 // Query
 const login = async (parent, { email, password }) => {
-    // Find user with email
-    const user = await User.findOne({ email }).exec()
+    try {
+        const user = await User.findOne({ email }).exec()
+        const match = await bcrypt.compare(password, user.encryptedPassword)
 
-    // Compare user encryptedPassword with password
-    const match = await bcrypt.compare(password, user.encryptedPassword)
+        if (match) {
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+                expiresIn: "20h",
+            })
+            return { token }
+        } else {
+            console.log("wrong pass") // TODO throw GraphQl error
 
-    if (match) {
-        console.log("same pass")
-
-        // create a token (with email)
-        const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-            expiresIn: "20h",
-        }) // TODO put secret in env var.
-
-        return { token }
-    } else {
-        console.log("wrong pass")
-
-        return null
+            return null
+        }
+    } catch (error) {
+        console.log(`gb🚀 ~ login ~ error`, error)
     }
 }
 
