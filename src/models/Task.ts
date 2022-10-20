@@ -4,7 +4,7 @@ const LabelSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
+        // unique: true,
     },
     position: {
         type: Number,
@@ -23,7 +23,7 @@ const TaskSchema = new mongoose.Schema({
     },
     link: String,
     fixedDate: Date, // '2002-12-09'
-    labels: [LabelSchema],
+    // labels: [LabelSchema],
 })
 
 export default mongoose.model("Task", TaskSchema)

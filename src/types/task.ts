@@ -4,14 +4,12 @@ interface LabelType {
 }
 
 interface TaskType {
+    id?: string
     user: string
     name: string
-    link: string
-    fixeDate: Date
-    labels: LabelType[]
-}
-interface TaskWithIdType extends TaskType {
-    id: string
+    link?: string
+    fixeDate?: Date
+    labels?: LabelType[]
 }
 
 export { LabelType, TaskType }

@@ -4,7 +4,7 @@ import Task from "../models/Task.js"
 import { TaskType } from "../types/task.js"
 
 // Query
-const getTasks = async (parent, args, context: MyContext, info) => {
+const getTasks = async (_parent, _args: any, context: MyContext, _info) => {
     if (context.authScope !== "unauthorised") {
         const result = await Task.find({ user: context.email }) //     const user = await User.findOne({ email }).exec() //.find({ name: 'john', age: { $gte: 18 } }).exec();
         return result
@@ -16,15 +16,35 @@ const getTasks = async (parent, args, context: MyContext, info) => {
 }
 
 // Mutation
-const addTask = async (parent, args: TaskType) => {
-    const newItem = await new Task(args)
-    newItem.save()
-    return newItem
+const addTask = async (_parent, { name }, context: MyContext, _info) => {
+    try {
+        if (context.authScope === "unauthorised") {
+            throw new GraphQLError("Unauthorised !", {
+                extensions: { code: "UNAUTHENTICATED" }, // TODO change the code ?
+            })
+        } else {
+            console.log("authorised")
+            const newItem = await new Task({ name, user: context.email })
+            newItem.save()
+            return newItem
+        }
+    } catch (error) {
+        return null
+    }
 }
-// const deleteUser = async (_, { email }) => {
-//     const user = await User.findOne({ email }).exec()
-//     user.deleteOne()
-//     return user
-// }
+const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
+    try {
+        if (context.authScope === "unauthorised") {
+            throw new GraphQLError("Unauthorised !", {
+                extensions: { code: "UNAUTHENTICATED" }, // TODO change the code ?
+            })
+        } else {
+            const task = await Task.findOne({ user: context.email, id }).exec()
+            task.deleteOne()
+            console.log("delete task")
+            return task
+        }
+    } catch (error) {}
+}
 
-export { addTask, getTasks }
+export { addTask, getTasks, deleteTask }

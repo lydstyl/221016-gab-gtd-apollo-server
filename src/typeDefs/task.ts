@@ -38,8 +38,8 @@ const taskQueries = `
     getTasks: [Task]
 `
 const taskMutations = `
-    addTask(user: String!, name: String!, link: String, fixedDate: String): Task
-    deleteTask(id: String): Task
+    addTask(name: String!, link: String, fixedDate: String): Task
+    deleteTask(id: String!): Task
 `
 
 export { Task, taskQueries, taskMutations }
