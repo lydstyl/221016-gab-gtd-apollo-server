@@ -2,9 +2,7 @@
 
 ## TODO
 
--   Tasks update with authorization
--   Labels CRUD
--   Remove books
+-   Labels CRUD, try object.id and ref both sides
 -   Script to clear database and populate it from trello
 -   Domain code
 
