@@ -32,6 +32,31 @@ const addTask = async (_parent, { name }, context: MyContext, _info) => {
         return null
     }
 }
+const updateTask = async (_parent, args, context: MyContext, _info) => {
+    try {
+        if (context.authScope === "unauthorised") {
+            throw new GraphQLError("Unauthorised !", {
+                extensions: { code: "UNAUTHENTICATED" }, // TODO change the code ?
+            })
+        } else {
+            const { id } = args
+            const task = await Task.findOne({ user: context.email, id }).exec()
+            if (args.name) {
+                task.name = args.name
+            }
+            if (args.link) {
+                task.link = args.link
+            }
+            if (args.fixedDate) {
+                task.fixedDate = args.fixedDate
+            }
+
+            task.save()
+            console.log("Task updated !")
+            return task
+        }
+    } catch (error) {}
+}
 const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
     try {
         if (context.authScope === "unauthorised") {
@@ -47,4 +72,4 @@ const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
     } catch (error) {}
 }
 
-export { addTask, getTasks, deleteTask }
+export { addTask, getTasks, updateTask, deleteTask }

@@ -39,6 +39,7 @@ const taskQueries = `
 `
 const taskMutations = `
     addTask(name: String!, link: String, fixedDate: String): Task
+    updateTask(id: String!, name: String, link: String, fixedDate: String): Task
     deleteTask(id: String!): Task
 `
 
