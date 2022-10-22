@@ -1,23 +1,23 @@
-import { Book, bookQueries, bookMutations } from "./book.js"
 import { User, userQueries, userMutations } from "./user.js"
 import { Login, loginQueries } from "./login.js"
 import { Task, taskQueries, taskMutations } from "./task.js"
+import { Label, labelQueries, labelMutations } from "./label.js"
 
 const typeDefs = `
     ${User}
     ${Login}
     ${Task}
-    ${Book}
+    ${Label}
     type Query {
         ${userQueries}
         ${loginQueries}
         ${taskQueries}
-        ${bookQueries}
+        ${labelQueries}
     }
     type Mutation {
         ${userMutations}
         ${taskMutations}
-        ${bookMutations}
+        ${labelMutations}
     }
 `
 

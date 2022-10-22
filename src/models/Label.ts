@@ -1,6 +1,10 @@
 import mongoose, { Schema } from "mongoose"
 
 const LabelSchema = new Schema({
+    user: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
