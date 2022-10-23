@@ -18,23 +18,33 @@ const getTasks = async (_parent, _args: any, context: MyContext, _info) => {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ getTasks ~ error`, error)
+        console.log(`gb🚀 ~ getTasks ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
 
 // Mutation
-const addTask = async (_parent, { name }, context: MyContext, _info) => {
+const addTask = async (_parent, args, context: MyContext, _info) => {
+    const { name, link, fixedDate, labels } = args
     try {
         if (isAuthorised(context)) {
-            const newItem = await new Task({ name, user: context.email })
-            newItem.save()
-            return newItem
+            const item = await new Task({ name, user: context.email })
+            if (link) {
+                item.link = link
+            }
+            if (fixedDate) {
+                item.fixedDate = fixedDate
+            }
+            if (labels) {
+                item.labels = labels
+            }
+            item.save()
+            return item
         } else {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ addTask ~ error`, error)
+        console.log(`gb🚀 ~ addTask ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
@@ -42,19 +52,19 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
     console.log(`gb🚀 ~ updateTask ~ args`, args)
     try {
         if (isAuthorised(context)) {
-            const { id } = args
+            const { id, name, link, fixedDate, labels } = args
             const item = await Task.findById(id).exec()
-            if (args.name) {
-                item.name = args.name
+            if (name) {
+                item.name = name
             }
-            if (args.link) {
-                item.link = args.link
+            if (link) {
+                item.link = link
             }
-            if (args.fixedDate) {
-                item.fixedDate = args.fixedDate
+            if (fixedDate) {
+                item.fixedDate = fixedDate
             }
-            if (args.labels) {
-                item.labels = [...item.labels, args.labels]
+            if (labels) {
+                item.labels = labels
             }
             console.log(`gb🚀 ~ updateTask ~ item`, item)
             item.save()
@@ -79,7 +89,7 @@ const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ deleteTask ~ error`, error)
+        console.log(`gb🚀 ~ deleteTask ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
