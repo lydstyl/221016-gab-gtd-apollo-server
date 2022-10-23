@@ -47,31 +47,28 @@ const addLabel = async (
         throwSomethingWhentWrong()
     }
 }
-// const updateTask = async (_parent, args, context: MyContext, _info) => {
-//     try {
-//         if (isAuthorised(context)) {
-//             const { id } = args
-//             const task = await Task.findById(id).exec()
-//             if (args.name) {
-//                 task.name = args.name
-//             }
-//             if (args.link) {
-//                 task.link = args.link
-//             }
-//             if (args.fixedDate) {
-//                 task.fixedDate = args.fixedDate
-//             }
-//             task.save()
-//             console.log("Task updated !")
-//             return task
-//         } else {
-//             throwUnauthorised()
-//         }
-//     } catch (error) {
-//         console.log(`gb🚀 ~ updateTask ~ error`, error)
-//         throwSomethingWhentWrong()
-//     }
-// }
+const updateLabel = async (_parent, args, context: MyContext, _info) => {
+    try {
+        if (isAuthorised(context)) {
+            const { id } = args
+            const item = await Label.findById(id).exec()
+            if (args.name) {
+                item.name = args.name
+            }
+            if (args.position) {
+                item.position = args.position
+            }
+            item.save()
+            console.log("Label updated !")
+            return item
+        } else {
+            throwUnauthorised()
+        }
+    } catch (error) {
+        console.log(`gb🚀 ~ updateLabel ~ error`, error)
+        throwSomethingWhentWrong()
+    }
+}
 const deleteLabel = async (_parent, { id }, context: MyContext, _info) => {
     try {
         if (isAuthorised(context)) {
@@ -83,9 +80,9 @@ const deleteLabel = async (_parent, { id }, context: MyContext, _info) => {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ deleteTask ~ error`, error)
+        console.log(`gb🚀 ~ deleteLabel ~ error`, error)
         throwSomethingWhentWrong()
     }
 }
 
-export { addLabel, getLabels, deleteLabel }
+export { addLabel, getLabels, deleteLabel, updateLabel }

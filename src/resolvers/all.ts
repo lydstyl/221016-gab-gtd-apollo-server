@@ -1,7 +1,7 @@
 import { getUsers, addUser, deleteUser } from "./user.js"
 import { login } from "./login.js"
 import { addTask, getTasks, updateTask, deleteTask } from "./task.js"
-import { addLabel, getLabels, deleteLabel } from "./label.js"
+import { addLabel, getLabels, deleteLabel, updateLabel } from "./label.js"
 
 const resolvers = {
     Query: {
@@ -22,6 +22,7 @@ const resolvers = {
 
         addLabel,
         deleteLabel,
+        updateLabel,
     },
 }
 
