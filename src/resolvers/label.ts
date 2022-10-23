@@ -7,19 +7,19 @@ import {
 } from "../helpers/throwError.js"
 
 // Query
-// const getTasks = async (_parent, _args: any, context: MyContext, _info) => {
-//     try {
-//         if (isAuthorised(context)) {
-//             const result = await Task.find({ user: context.email })
-//             return result
-//         } else {
-//             throwUnauthorised()
-//         }
-//     } catch (error) {
-//         console.log(`gb🚀 ~ getTasks ~ error`, error)
-//         throwSomethingWhentWrong()
-//     }
-// }
+const getLabels = async (_parent, _args: any, context: MyContext, _info) => {
+    try {
+        if (isAuthorised(context)) {
+            const result = await Label.find({ user: context.email })
+            return result
+        } else {
+            throwUnauthorised()
+        }
+    } catch (error) {
+        console.log(`gb🚀 ~ getLabels ~ error`, error)
+        throwSomethingWhentWrong()
+    }
+}
 
 // Mutation
 const addLabel = async (
@@ -36,6 +36,7 @@ const addLabel = async (
                 position,
                 tasks: [],
             })
+            console.log(`gb🚀 ~ newItem`, newItem)
             newItem.save()
             return newItem
         } else {
@@ -89,5 +90,6 @@ const addLabel = async (
 
 export {
     addLabel,
+    getLabels,
     //, getTasks, updateTask, deleteTask
 }

@@ -50,6 +50,9 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
             if (args.fixedDate) {
                 task.fixedDate = args.fixedDate
             }
+            if (args.labels) {
+                task.labels = [...task.labels, args.labels]
+            }
             task.save()
             console.log("Task updated !")
             return task

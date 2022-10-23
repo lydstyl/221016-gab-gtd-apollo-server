@@ -34,8 +34,8 @@ const labelQueries = `
 `
 const labelMutations = `
     addLabel(name: String!, position: Int): Label
-    updateLabel(id: String!, name: String, position: Int, tasks:[Task]): Label
-    deleteLabel(id: String!): Label
 `
+// updateLabel(id: String!, name: String, position: Int, tasks:[Task]): Label
+// deleteLabel(id: String!): Label
 
 export { Label, labelQueries, labelMutations }

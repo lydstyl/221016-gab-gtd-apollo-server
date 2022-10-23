@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose"
 
 const TaskSchema = new mongoose.Schema({
-    // _id     : Schema.Types.ObjectId,
+    // _id: Schema.Types.ObjectId,
     user: {
         type: String,
         required: true,

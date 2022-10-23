@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose"
 
 const LabelSchema = new Schema({
+    // _id: Schema.Types.ObjectId,
     user: {
         type: String,
         required: true,
@@ -17,4 +18,4 @@ const LabelSchema = new Schema({
     tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
 })
 
-export default mongoose.model("Task", LabelSchema)
+export default mongoose.model("Label", LabelSchema)
