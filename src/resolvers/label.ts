@@ -11,12 +11,13 @@ const getLabels = async (_parent, _args: any, context: MyContext, _info) => {
     try {
         if (isAuthorised(context)) {
             const result = await Label.find({ user: context.email })
+            console.log(`gb🚀 ~ getLabels ~ result`, result)
             return result
         } else {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ getLabels ~ error`, error)
+        console.log(`gb🚀 ~ getLabels ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
@@ -43,7 +44,7 @@ const addLabel = async (
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ addLabel ~ error`, error)
+        console.log(`gb🚀 ~ addLabel ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
@@ -65,7 +66,7 @@ const updateLabel = async (_parent, args, context: MyContext, _info) => {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ updateLabel ~ error`, error)
+        console.log(`gb🚀 ~ updateLabel ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
@@ -80,7 +81,7 @@ const deleteLabel = async (_parent, { id }, context: MyContext, _info) => {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ deleteLabel ~ error`, error)
+        console.log(`gb🚀 ~ deleteLabel ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }

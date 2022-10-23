@@ -2,8 +2,12 @@
 
 ## TODO
 
--   add label to task also add task id to label
--   remove label from task also remove task id from label
+-   add task id to label when
+    -   adding a new task
+    -   updating a task
+    -   deleteing a task
+-   create addOneLabelToTask
+-   create removeOneLabelFromTask
 -   Script to clear database and populate it from trello
 -   Domain code
 
