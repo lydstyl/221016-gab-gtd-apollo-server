@@ -2,7 +2,10 @@
 
 ## TODO
 
--   Labels CRUD, try object.id and ref both sides
+-   update label also update task label (should be ok now)
+-   delete label should remove label from tasks
+-   add label to task also add task id to label
+-   remove label from task also remove task id from label
 -   Script to clear database and populate it from trello
 -   Domain code
 

@@ -10,7 +10,9 @@ import {
 const getTasks = async (_parent, _args: any, context: MyContext, _info) => {
     try {
         if (isAuthorised(context)) {
-            const result = await Task.find({ user: context.email })
+            const result = await Task.find({ user: context.email }).populate(
+                "labels"
+            )
             return result
         } else {
             throwUnauthorised()
@@ -37,30 +39,32 @@ const addTask = async (_parent, { name }, context: MyContext, _info) => {
     }
 }
 const updateTask = async (_parent, args, context: MyContext, _info) => {
+    console.log(`gb🚀 ~ updateTask ~ args`, args)
     try {
         if (isAuthorised(context)) {
             const { id } = args
-            const task = await Task.findById(id).exec()
+            const item = await Task.findById(id).exec()
             if (args.name) {
-                task.name = args.name
+                item.name = args.name
             }
             if (args.link) {
-                task.link = args.link
+                item.link = args.link
             }
             if (args.fixedDate) {
-                task.fixedDate = args.fixedDate
+                item.fixedDate = args.fixedDate
             }
             if (args.labels) {
-                task.labels = [...task.labels, args.labels]
+                item.labels = [...item.labels, args.labels]
             }
-            task.save()
+            console.log(`gb🚀 ~ updateTask ~ item`, item)
+            item.save()
             console.log("Task updated !")
-            return task
+            return item
         } else {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ updateTask ~ error`, error)
+        console.log(`gb🚀 ~ updateTask ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
