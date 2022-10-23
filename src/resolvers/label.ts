@@ -72,24 +72,20 @@ const addLabel = async (
 //         throwSomethingWhentWrong()
 //     }
 // }
-// const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
-//     try {
-//         if (isAuthorised(context)) {
-//             const task = await Task.findOne({ user: context.email, id }).exec()
-//             task.deleteOne()
-//             console.log("delete task")
-//             return task
-//         } else {
-//             throwUnauthorised()
-//         }
-//     } catch (error) {
-//         console.log(`gb🚀 ~ deleteTask ~ error`, error)
-//         throwSomethingWhentWrong()
-//     }
-// }
-
-export {
-    addLabel,
-    getLabels,
-    //, getTasks, updateTask, deleteTask
+const deleteLabel = async (_parent, { id }, context: MyContext, _info) => {
+    try {
+        if (isAuthorised(context)) {
+            const item = await Label.findOne({ user: context.email, id }).exec()
+            item.deleteOne()
+            console.log("delete label")
+            return item
+        } else {
+            throwUnauthorised()
+        }
+    } catch (error) {
+        console.log(`gb🚀 ~ deleteTask ~ error`, error)
+        throwSomethingWhentWrong()
+    }
 }
+
+export { addLabel, getLabels, deleteLabel }
