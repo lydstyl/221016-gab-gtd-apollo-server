@@ -40,16 +40,6 @@ const addTask = async (_parent, args, context: MyContext, _info) => {
             if (fixedDate) {
                 item.fixedDate = fixedDate
             }
-            // if (labels) {
-            //     // // uniqueLabelsId = getUniques(labels)
-            //     // // // // TODO test it update label tasks id
-            //     // // uniqueLabelsId.forEach(async labelId => {
-            //     // //     console.log(`gb🚀 ~ addTask ~ labelId`, labelId)
-            //     // //     const label = await Label.findById(labelId).exec()
-            //     // //     label.tasks = getUniques([...label.tasks, item._id]) // or item._id ?
-            //     // //     label.save()
-            //     // // })
-            // }
             item.save()
             return item
         } else {
@@ -87,6 +77,21 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
         throwSomethingWhentWrong()
     }
 }
+const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
+    try {
+        if (isAuthorised(context)) {
+            const task = await Task.findOne({ user: context.email, id }).exec()
+            task.deleteOne()
+            console.log("delete task")
+            return task
+        } else {
+            throwUnauthorised()
+        }
+    } catch (error) {
+        console.log(`gb🚀 ~ deleteTask ~ error`, error.message)
+        throwSomethingWhentWrong()
+    }
+}
 const addOneLabelToTask = async (
     _parent,
     { labelId, taskId },
@@ -112,20 +117,38 @@ const addOneLabelToTask = async (
         throwSomethingWhentWrong()
     }
 }
-const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
+const removeOneLabelFromTask = async (
+    _parent,
+    { labelId, taskId },
+    context: MyContext,
+    _info
+) => {
     try {
         if (isAuthorised(context)) {
-            const task = await Task.findOne({ user: context.email, id }).exec()
-            task.deleteOne()
-            console.log("delete task")
+            const task = await Task.findById(taskId).exec()
+            const label = await Label.findById(labelId).exec()
+            task.labels = task.labels.filter(
+                label => label.toString() !== labelId
+            )
+            label.tasks = label.tasks.filter(task => task.toString() !== taskId)
+            await task.save()
+            await label.save()
+            console.log(`gb🚀 ~ addOneLabelToTask ~ task`, task)
+            console.log("Label added to task !")
             return task
         } else {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ deleteTask ~ error`, error.message)
+        console.log(`gb🚀 ~ updateTask ~ error`, error.message)
         throwSomethingWhentWrong()
     }
 }
-
-export { addTask, getTasks, updateTask, deleteTask, addOneLabelToTask }
+export {
+    addTask,
+    getTasks,
+    updateTask,
+    deleteTask,
+    addOneLabelToTask,
+    removeOneLabelFromTask,
+}

@@ -2,14 +2,8 @@
 
 ## TODO
 
--   add task id to label when
-    -   adding a new task
-    -   updating a task
-    -   deleteing a task
--   create addOneLabelToTask
--   create removeOneLabelFromTask
 -   Script to clear database and populate it from trello
--   Domain code
+-   Domain code in front to save server ressources
 
     -   21 tasks filtered by
         -   lessThen2Min,

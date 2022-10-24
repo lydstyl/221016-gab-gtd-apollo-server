@@ -6,6 +6,7 @@ import {
     updateTask,
     deleteTask,
     addOneLabelToTask,
+    removeOneLabelFromTask,
 } from "./task.js"
 import { addLabel, getLabels, deleteLabel, updateLabel } from "./label.js"
 
@@ -26,6 +27,7 @@ const resolvers = {
         updateTask,
         deleteTask,
         addOneLabelToTask,
+        removeOneLabelFromTask,
 
         addLabel,
         deleteLabel,

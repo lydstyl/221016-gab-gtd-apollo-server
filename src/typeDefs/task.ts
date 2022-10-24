@@ -17,6 +17,7 @@ const taskMutations = `
     deleteTask(id: String!): Task
 
     addOneLabelToTask(labelId: String!, taskId: String!): Task
+    removeOneLabelFromTask(labelId: String!, taskId: String!): Task
 `
 
 export { Task, taskQueries, taskMutations }
