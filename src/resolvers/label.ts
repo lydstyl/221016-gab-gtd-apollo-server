@@ -10,7 +10,9 @@ import {
 const getLabels = async (_parent, _args: any, context: MyContext, _info) => {
     try {
         if (isAuthorised(context)) {
-            const result = await Label.find({ user: context.email })
+            const result = await Label.find({ user: context.email }).populate(
+                "tasks"
+            )
             console.log(`gb🚀 ~ getLabels ~ result`, result)
             return result
         } else {

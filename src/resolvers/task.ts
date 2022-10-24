@@ -30,7 +30,7 @@ const getTasks = async (_parent, _args: any, context: MyContext, _info) => {
 
 // Mutation
 const addTask = async (_parent, args, context: MyContext, _info) => {
-    const { name, link, fixedDate, labels } = args
+    const { name, link, fixedDate } = args
     try {
         if (isAuthorised(context)) {
             const item = await new Task({ name, user: context.email })
@@ -40,24 +40,16 @@ const addTask = async (_parent, args, context: MyContext, _info) => {
             if (fixedDate) {
                 item.fixedDate = fixedDate
             }
-            if (labels) {
-                // // uniqueLabelsId = getUniques(labels)
-                // // // // TODO test it update label tasks id
-                // // uniqueLabelsId.forEach(async labelId => {
-                // //     console.log(`gb🚀 ~ addTask ~ labelId`, labelId)
-                // //     const label = await Label.findById(labelId).exec()
-                // //     label.tasks = getUniques([...label.tasks, item._id]) // or item._id ?
-                // //     label.save()
-                // // })
-
-                // console.log(`gb🚀 ~ addTask ~ item.id`, item.id, item._id)
-                // const label = await Label.findById(labels[0]).exec() // to do foreach label
-                // label.tasks = [...label.tasks, item.id]
-                // label.save()
-
-                item.labels = labels
-                // item.labels = getUniques(labels) // or item._id ?
-            }
+            // if (labels) {
+            //     // // uniqueLabelsId = getUniques(labels)
+            //     // // // // TODO test it update label tasks id
+            //     // // uniqueLabelsId.forEach(async labelId => {
+            //     // //     console.log(`gb🚀 ~ addTask ~ labelId`, labelId)
+            //     // //     const label = await Label.findById(labelId).exec()
+            //     // //     label.tasks = getUniques([...label.tasks, item._id]) // or item._id ?
+            //     // //     label.save()
+            //     // // })
+            // }
             item.save()
             return item
         } else {
@@ -72,7 +64,7 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
     console.log(`gb🚀 ~ updateTask ~ args`, args)
     try {
         if (isAuthorised(context)) {
-            const { id, name, link, fixedDate, labels } = args
+            const { id, name, link, fixedDate } = args
             const item = await Task.findById(id).exec()
             if (name) {
                 item.name = name
@@ -82,9 +74,6 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
             }
             if (fixedDate) {
                 item.fixedDate = fixedDate
-            }
-            if (labels) {
-                // item.labels = labels // TODO update label task ids ... or only available this possibility when
             }
             console.log(`gb🚀 ~ updateTask ~ item`, item)
             item.save()
@@ -98,17 +87,23 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
         throwSomethingWhentWrong()
     }
 }
-const addOneLabelToTask = async (_parent, args, context: MyContext, _info) => {
-    console.log(`gb🚀 ~ updateTask ~ args`, args)
+const addOneLabelToTask = async (
+    _parent,
+    { labelId, taskId },
+    context: MyContext,
+    _info
+) => {
     try {
         if (isAuthorised(context)) {
-            const { id, label } = args
-            const item = await Task.findById(id).exec()
-            item.labels = [...item.labels, label]
-            console.log(`gb🚀 ~ updateTask ~ item`, item)
-            item.save()
-            console.log("Task updated !")
-            return item
+            const task = await Task.findById(taskId).exec()
+            const label = await Label.findById(labelId).exec()
+            task.labels.push(label.id)
+            label.tasks.push(task.id)
+            await task.save()
+            await label.save()
+            console.log(`gb🚀 ~ addOneLabelToTask ~ task`, task)
+            console.log("Label added to task !")
+            return task
         } else {
             throwUnauthorised()
         }
@@ -133,4 +128,4 @@ const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
     }
 }
 
-export { addTask, getTasks, updateTask, deleteTask }
+export { addTask, getTasks, updateTask, deleteTask, addOneLabelToTask }

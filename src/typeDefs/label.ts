@@ -26,7 +26,7 @@ type Label {
     user: String!
     name: String!
     position: Int
-    tasks:[Task]
+    tasks: [Task]
 }
 `
 const labelQueries = `
