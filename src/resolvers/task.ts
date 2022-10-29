@@ -4,6 +4,7 @@ import {
     isAuthorised,
     throwUnauthorised,
     throwSomethingWhentWrong,
+    throwError,
 } from "../helpers/throwError.js"
 import Label from "../models/Label.js"
 
@@ -114,6 +115,11 @@ const addOneLabelToTask = async (
         if (isAuthorised(context)) {
             const task = await Task.findById(taskId).exec()
             const label = await Label.findById(labelId).exec()
+
+            if (task.labels.includes(label.id)) {
+                throwError("Label already in the task !")
+            }
+
             task.labels.push(label.id)
             label.tasks.push(task.id)
             await task.save()
@@ -126,7 +132,7 @@ const addOneLabelToTask = async (
         }
     } catch (error) {
         console.log(`gb🚀 ~ updateTask ~ error`, error.message)
-        throwSomethingWhentWrong()
+        throwSomethingWhentWrong(error.message)
     }
 }
 const removeOneLabelFromTask = async (

@@ -11,4 +11,7 @@ function throwUnauthorised() {
 function throwSomethingWhentWrong(msg?: string) {
     throw new GraphQLError(`Something went wrong. ${msg}`)
 }
-export { isAuthorised, throwUnauthorised, throwSomethingWhentWrong }
+function throwError(msg: string) {
+    throw new GraphQLError(`Error: ${msg}`)
+}
+export { isAuthorised, throwUnauthorised, throwSomethingWhentWrong, throwError }
