@@ -2,6 +2,7 @@ import { getUsers, addUser, deleteUser } from "./user.js"
 import { login } from "./login.js"
 import {
     addTask,
+    getTask,
     getTasks,
     updateTask,
     deleteTask,
@@ -16,6 +17,7 @@ const resolvers = {
 
         login,
 
+        getTask,
         getTasks,
         getLabels,
     },

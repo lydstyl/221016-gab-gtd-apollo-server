@@ -23,8 +23,20 @@ const getTasks = async (_parent, _args: any, context: MyContext, _info) => {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ getTasks ~ error`, error.message)
-        throwSomethingWhentWrong()
+        throwSomethingWhentWrong(error.message)
+    }
+}
+const getTask = async (_parent, args: any, context: MyContext, _info) => {
+    const { id } = args
+    try {
+        if (isAuthorised(context)) {
+            const result = await Task.findById(id).populate("labels")
+            return result
+        } else {
+            throwUnauthorised()
+        }
+    } catch (error) {
+        throwSomethingWhentWrong(error.message)
     }
 }
 
@@ -146,6 +158,7 @@ const removeOneLabelFromTask = async (
 }
 export {
     addTask,
+    getTask,
     getTasks,
     updateTask,
     deleteTask,

@@ -9,6 +9,7 @@ type Task {
 }
 `
 const taskQueries = `
+    getTask(id: String!): Task
     getTasks: [Task]
 `
 const taskMutations = `
