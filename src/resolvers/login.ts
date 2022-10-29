@@ -12,7 +12,7 @@ const login = async (parent, { email, password }) => {
             const token = jwt.sign({ email }, process.env.JWT_SECRET, {
                 expiresIn: "20h",
             })
-            return { token }
+            return { token, user: user.email }
         } else {
             console.log("wrong pass") // TODO throw GraphQl error
 

@@ -1,10 +1,11 @@
 const Login = `
-type Token {
+type Login {
+    user: String
     token: String
 }
 `
 const loginQueries = `
-    login(email: String, password: String): Token
+    login(email: String, password: String): Login
 `
 // const userMutations = `
 //     addUser(email: String, password: String): User
