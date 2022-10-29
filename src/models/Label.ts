@@ -13,7 +13,9 @@ const LabelSchema = new Schema({
     },
     position: {
         type: Number,
-        required: true,
+    },
+    color: {
+        type: String,
     },
     tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
 })

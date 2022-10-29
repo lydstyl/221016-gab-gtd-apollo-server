@@ -26,6 +26,7 @@ type Label {
     user: String!
     name: String!
     position: Int
+    color: String
     tasks: [Task]
 }
 `
@@ -33,7 +34,7 @@ const labelQueries = `
     getLabels: [Label]
 `
 const labelMutations = `
-    addLabel(name: String!, position: Int): Label
+    addLabel(name: String!, position: Int, color: String): Label
     deleteLabel(id: String!): Label
     updateLabel(id: String!, name: String, position: Int): Label
 `

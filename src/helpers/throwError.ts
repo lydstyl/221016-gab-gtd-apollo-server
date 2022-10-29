@@ -8,7 +8,7 @@ function throwUnauthorised() {
         extensions: { code: "UNAUTHORISED" },
     })
 }
-function throwSomethingWhentWrong() {
-    throw new GraphQLError("Something went wrong.")
+function throwSomethingWhentWrong(msg?: string) {
+    throw new GraphQLError(`Something went wrong. ${msg}`)
 }
 export { isAuthorised, throwUnauthorised, throwSomethingWhentWrong }

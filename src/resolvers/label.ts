@@ -5,6 +5,7 @@ import {
     throwUnauthorised,
     throwSomethingWhentWrong,
 } from "../helpers/throwError.js"
+import { GraphQLError } from "graphql"
 
 // Query
 const getLabels = async (_parent, _args: any, context: MyContext, _info) => {
@@ -27,27 +28,30 @@ const getLabels = async (_parent, _args: any, context: MyContext, _info) => {
 // Mutation
 const addLabel = async (
     _parent,
-    { name, position },
+    { name, position, color },
     context: MyContext,
     _info
 ) => {
     try {
         if (isAuthorised(context)) {
+            if (!name) {
+                throw new GraphQLError("Label name is required !")
+            }
+
             const newItem = await new Label({
                 name,
                 user: context.email,
                 position,
+                color,
                 tasks: [],
             })
-            console.log(`gb🚀 ~ newItem`, newItem)
             newItem.save()
             return newItem
         } else {
             throwUnauthorised()
         }
     } catch (error) {
-        console.log(`gb🚀 ~ addLabel ~ error`, error.message)
-        throwSomethingWhentWrong()
+        throwSomethingWhentWrong(error.message)
     }
 }
 const updateLabel = async (_parent, args, context: MyContext, _info) => {
