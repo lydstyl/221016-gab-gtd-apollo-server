@@ -65,6 +65,9 @@ const updateLabel = async (_parent, args, context: MyContext, _info) => {
             if (args.position) {
                 item.position = args.position
             }
+            if (args.color) {
+                item.color = args.color
+            }
             item.save()
             console.log("Label updated !")
             return item
