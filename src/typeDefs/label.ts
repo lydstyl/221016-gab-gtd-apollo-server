@@ -1,25 +1,3 @@
-// enum Label {
-//     collect
-
-//     quick
-
-//     important
-//     urgent // fixedDate
-
-//     outside
-//     phone
-
-//     recursive
-//     support
-
-//     business
-//     real estate
-//     health
-//     social
-// }
-
-// importance: Int
-
 const Label = `
 type Label {
     id: ID
