@@ -93,9 +93,8 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
 const deleteTask = async (_parent, { id }, context: MyContext, _info) => {
     try {
         if (isAuthorised(context)) {
-            const task = await Task.findOne({ user: context.email, id }).exec()
-            task.deleteOne()
-            console.log("delete task")
+            const task = await Task.findByIdAndDelete(id)
+            console.log("delete task " + id)
             return task
         } else {
             throwUnauthorised()
