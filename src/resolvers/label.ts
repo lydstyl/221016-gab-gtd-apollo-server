@@ -14,7 +14,6 @@ const getLabels = async (_parent, _args: any, context: MyContext, _info) => {
             const result = await Label.find({ user: context.email }).populate(
                 "tasks"
             )
-            console.log(`gb🚀 ~ getLabels ~ result`, result)
             return result
         } else {
             throwUnauthorised()
@@ -82,8 +81,11 @@ const updateLabel = async (_parent, args, context: MyContext, _info) => {
 const deleteLabel = async (_parent, { id }, context: MyContext, _info) => {
     try {
         if (isAuthorised(context)) {
-            const item = await Label.findOne({ user: context.email, id }).exec()
-            item.deleteOne()
+            // const item = await Label.findOne({ user: context.email, id }).exec()
+            // item.deleteOne()
+
+            const item = await Label.findByIdAndDelete(id)
+
             console.log("delete label")
             return item
         } else {
