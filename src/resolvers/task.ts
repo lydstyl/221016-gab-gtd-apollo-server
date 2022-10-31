@@ -67,7 +67,7 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
     console.log(`gb🚀 ~ updateTask ~ args`, args)
     try {
         if (isAuthorised(context)) {
-            const { id, name, link, fixedDate } = args
+            const { id, name, link, fixedDate, clearFixedDate } = args
             const item = await Task.findById(id).exec()
             if (name) {
                 item.name = name
@@ -77,6 +77,9 @@ const updateTask = async (_parent, args, context: MyContext, _info) => {
             }
             if (fixedDate) {
                 item.fixedDate = fixedDate
+            }
+            if (clearFixedDate) {
+                item.fixedDate = null
             }
             console.log(`gb🚀 ~ updateTask ~ item`, item)
             item.save()

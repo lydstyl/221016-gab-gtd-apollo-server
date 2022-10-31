@@ -37,7 +37,7 @@ const taskQueries = `
 `
 const taskMutations = `
     addTask(name: String!, link: String, fixedDate: Date): Task
-    updateTask(id: String!, name: String, link: String, fixedDate: Date, labels: [ID]): Task
+    updateTask(id: String!, name: String, link: String, fixedDate: Date, clearFixedDate: Boolean, labels: [ID]): Task
     deleteTask(id: String!): Task
 
     addOneLabelToTask(labelId: String!, taskId: String!): Task
