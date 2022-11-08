@@ -24,6 +24,7 @@ const { url } = await startStandaloneServer(server, {
             const decoded = jwt.verify(
                 req.headers.authorization,
                 process.env.JWT_SECRET
+            )
             const { email } = decoded
             const theContext: MyContext = {
                 authScope: "user",
@@ -45,4 +46,5 @@ const { url } = await startStandaloneServer(server, {
         return {}
     },
 })
-console.log(colors.green.underline.bold`🚀  Server ready at: ${url}`)
+// console.log(colors.green.underline.bold`🚀  Server ready at: ${url}`)
+console.log(`🚀  Server ready at: ${url}`)
