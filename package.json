@@ -7,7 +7,7 @@
     "scripts": {
         "compile": "tsc",
         "postinstall": "npm run compile",
-        "start": "npm run compile && node ./index.js",
+        "start": "npm run compile && node ./build/index.js",
         "dev:1ts": "tsc -w",
         "dev:2js": "nodemon dist",
         "dev": "concurrently npm:dev:*"
