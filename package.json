@@ -4,9 +4,6 @@
     "description": "",
     "main": "index.js",
     "type": "module",
-    "engines": {
-        "node": "16.x"
-    },
     "scripts": {
         "compile": "tsc",
         "postinstall": "npm run compile",
