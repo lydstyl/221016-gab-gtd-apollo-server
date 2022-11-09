@@ -1,5 +1,9 @@
 # Gab's Zen GTD Graphql API
 
+GraphQL API to manage you todo with labels mor or less prior.
+
+Hosted by render.com
+
 ## TODO
 
 -   Script to clear database and populate it from trello
