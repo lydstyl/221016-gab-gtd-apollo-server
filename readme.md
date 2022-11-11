@@ -2,6 +2,12 @@
 
 Inspired by the "Get things done" method, this graphQL API is the backend of an app that looks like a sort of improved todolist with personalized labels/tags and a powerful sorting algorithm so you know what to do at all times.
 
+Backend graphQL API : https://lazy-pink-leopard-tux.cyclic.app/
+
+Front end : https://my-custom-gtd.netlify.app
+
+Frontend repo : https://github.com/lydstyl/221025-gab-gtd-apollo-client
+
 ## TODO
 
 -   Script to clear database and populate it from trello
