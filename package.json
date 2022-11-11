@@ -2,9 +2,10 @@
     "name": "221016-gab-gtd-apollo-server",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "build/index.js",
     "type": "module",
     "scripts": {
+        "build": "tsc",
         "compile": "tsc",
         "postinstall": "npm run compile",
         "start": "npm run compile && node ./build/index.js",
