@@ -1,8 +1,6 @@
 # Gab's Zen GTD Graphql API
 
-GraphQL API to manage you todo with labels mor or less prior.
-
-Hosted by render.com
+Inspired by the "Get things done" method, this graphQL API is the backend of an app that looks like a sort of improved todolist with personalized labels/tags and a powerful sorting algorithm so you know what to do at all times.
 
 ## TODO
 
@@ -21,3 +19,8 @@ Hosted by render.com
 -   cp .env.example .env and change values
 -   pnpm i or npm i
 -   pnpm run dev
+
+## Deployed URLs
+
+-   https://my-custom-gtd.onrender.com/",
+-   https://lazy-pink-leopard-tux.cyclic.app/
