@@ -1,4 +1,4 @@
-# Gab's Zen GTD Graphql API
+# My custiom GTD Graphql API
 
 Inspired by the "Get things done" method, this graphQL API is the backend of an app that looks like a sort of improved todolist with personalized labels/tags and a powerful sorting algorithm so you know what to do at all times.
 
