@@ -10,7 +10,7 @@ const login = async (parent, { email, password }) => {
 
         if (match) {
             const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-                expiresIn: "20h",
+                expiresIn: "30d",
             })
             return { token, user: user.email }
         } else {
