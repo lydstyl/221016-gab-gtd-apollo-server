@@ -11,7 +11,7 @@
         "start": "node ./build/index.js",
         "start-old": "npm run compile && node ./build/index.js",
         "dev:1ts": "tsc -w",
-        "dev:2js": "nodemon dist",
+        "dev:2js": "nodemon build",
         "dev": "concurrently npm:dev:*"
     },
     "keywords": [],
