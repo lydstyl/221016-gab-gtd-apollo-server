@@ -2,11 +2,11 @@ import { GraphQLError } from "graphql"
 import bcrypt from "bcrypt"
 import User from "../models/User.js"
 import { MyContext } from "../types.js"
+import { isAuthorised, throwUnauthorised } from "../helpers/throwError.js"
+import { Task } from "../typeDefs/task.js"
 
 // Query
 const getUsers = async (parent, args, context: MyContext, info) => {
-    console.log(JSON.stringify(context, null, 4))
-
     if (context.authScope !== "admin") {
         throw new GraphQLError("Not admin !", {
             extensions: { code: "UNAUTHENTICATED" }, // TODO change the code ?
@@ -29,10 +29,22 @@ const addUser = async (_, { email, password }) => {
     newItem.save()
     return newItem
 }
-const deleteUser = async (_, { email }) => {
-    const user = await User.findOne({ email }).exec()
-    user.deleteOne()
-    return user
+
+const deleteUser = async (_parent, { email }, context: MyContext, _info) => {
+    const isAdmin = context.authScope === "admin"
+    const isThisAccountUser = isAuthorised(context) && email === context.email
+    try {
+        if (isAdmin || isThisAccountUser) {
+            const user = await User.findOne({ email }).exec()
+            user.deleteOne()
+            return user
+        } else {
+            throwUnauthorised()
+        }
+    } catch (error) {
+        console.log(`gb🚀 ~ deleteUser ~ error`, error.message)
+        throwUnauthorised()
+    }
 }
 
 export { getUsers, addUser, deleteUser }

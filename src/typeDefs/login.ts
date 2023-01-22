@@ -7,9 +7,5 @@ type Login {
 const loginQueries = `
     login(email: String, password: String): Login
 `
-// const userMutations = `
-//     addUser(email: String, password: String): User
-//     deleteUser(id: String): User
-// `
 
 export { Login, loginQueries }
