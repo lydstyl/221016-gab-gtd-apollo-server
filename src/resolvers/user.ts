@@ -2,7 +2,11 @@ import { GraphQLError } from "graphql"
 import bcrypt from "bcrypt"
 import User from "../models/User.js"
 import { MyContext } from "../types.js"
-import { isAuthorised, throwUnauthorised } from "../helpers/throwError.js"
+import {
+    isAuthorised,
+    throwError,
+    throwUnauthorised,
+} from "../helpers/throwError.js"
 import { Task } from "../typeDefs/task.js"
 
 // Query
@@ -19,9 +23,15 @@ const getUsers = async (parent, args, context: MyContext, info) => {
 
 // Mutation
 const addUser = async (_, { email, password }) => {
-    // parent and args ?
     const saltRounds = 10
     const encryptedPassword = await bcrypt.hash(password, saltRounds)
+
+    const user = await User.findOne({ email }).exec()
+    if (user) {
+        throwError("User already exist !")
+        return
+    }
+
     const newItem = await new User({
         email,
         encryptedPassword,

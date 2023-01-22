@@ -8,16 +8,15 @@ const login = async (parent, { email, password }) => {
         const user = await User.findOne({ email }).exec()
         const match = await bcrypt.compare(password, user.encryptedPassword)
 
-        if (match) {
-            const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-                expiresIn: "30d",
-            })
-            return { token, user: user.email }
-        } else {
+        if (!match) {
             console.log("wrong pass") // TODO throw GraphQl error
-
             return null
         }
+
+        const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+            expiresIn: "30d",
+        })
+        return { token, user: user.email }
     } catch (error) {
         console.log(`gb🚀 ~ login ~ error`, error)
     }
