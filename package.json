@@ -1,35 +1,35 @@
 {
-    "name": "221016-gab-gtd-apollo-server",
-    "version": "1.0.0",
-    "description": "",
-    "main": "build/index.js",
-    "type": "module",
-    "scripts": {
-        "build": "tsc",
-        "compile": "tsc",
-        "postinstall": "npm run compile",
-        "start": "node ./build/index.js",
-        "start-old": "npm run compile && node ./build/index.js",
-        "dev:1ts": "tsc -w",
-        "dev:2js": "nodemon build",
-        "dev": "concurrently npm:dev:*"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "@apollo/server": "^4.9.5",
-        "bcrypt": "^5.1.1",
-        "colors": "^1.4.0",
-        "dotenv": "^16.3.1",
-        "graphql": "^16.8.1",
-        "jsonwebtoken": "^9.0.2",
-        "mongoose": "^8.0.1"
-    },
-    "devDependencies": {
-        "@types/node": "^20.10.0",
-        "concurrently": "^8.2.2",
-        "nodemon": "^3.0.1",
-        "typescript": "^5.3.2"
-    }
+  "name": "221016-gab-gtd-apollo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "compile": "tsc",
+    "postinstall": "npm run compile",
+    "start": "node ./build/index.js",
+    "start-old": "npm run compile && node ./build/index.js",
+    "dev:1ts": "tsc -w",
+    "dev:2js": "nodemon build",
+    "dev": "concurrently npm:dev:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.10.2",
+    "bcrypt": "^5.1.1",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "graphql": "^16.8.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.6",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0",
+    "typescript": "^5.4.4"
+  }
 }
