@@ -17,7 +17,7 @@ const server = new ApolloServer<MyContext>({
 connectDB()
 
 const { url } = await startStandaloneServer(server, {
-  listen: { port: +process.env.PORT || 5000 },
+  listen: { port: +process.env.PORT || 5000 }, // render use 5000
   context: async ({ req, res }) => {
     // verify a token symmetric - synchronous
     try {
