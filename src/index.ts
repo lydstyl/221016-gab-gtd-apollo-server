@@ -8,18 +8,29 @@ import { connectDB } from './config/db.js'
 import typeDefs from './typeDefs/all.js'
 import resolvers from './resolvers/all.js'
 import { MyContext } from './types.js'
+import cors from 'cors'
+import express from 'express'
 
 const server = new ApolloServer<MyContext>({
   typeDefs,
   resolvers
 })
 
-connectDB()
+const app = express()
+
+app.use(
+  cors({
+    origin: 'https://my-custom-gtd.netlify.app', // Remplace par l'origine autorisée
+    credentials: true, // Si tu veux gérer les cookies et les sessions
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'Authorization', 'Content-Type', 'Accept']
+  })
+)
 
 const { url } = await startStandaloneServer(server, {
-  listen: { port: +process.env.PORT || 5000 }, // render use 5000
+  listen: { port: +process.env.PORT || 5000 }, // render use 500
   context: async ({ req, res }) => {
-    // verify a token symmetric - synchronous
+    // Verify a token
     try {
       const decoded = jwt.verify(
         req.headers.authorization,
@@ -32,10 +43,8 @@ const { url } = await startStandaloneServer(server, {
       }
       if (email === process.env.ADMIN_EMAIL) {
         theContext.authScope = 'admin'
-        return theContext
-      } else {
-        return theContext
       }
+      return theContext
     } catch (err) {
       const unauthorisedContext: MyContext = {
         authScope: 'unauthorised',
@@ -43,8 +52,8 @@ const { url } = await startStandaloneServer(server, {
       }
       return unauthorisedContext
     }
-    return {}
   }
 })
+
 // console.log(colors.green.underline.bold`🚀  Server ready at: ${url}`)
 console.log(`🚀  Server ready at: ${url}`)
